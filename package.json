@@ -1,0 +1,44 @@
+{
+  "name": "leafer-vue-app",
+  "version": "0.0.0",
+  "author": "coder <1129464982@qq.com>",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "@leafer-in/animate": "^1.0.10",
+    "@leafer-in/arrow": "^1.0.10",
+    "@leafer-in/color": "^1.0.9",
+    "@leafer-in/editor": "^1.0.10",
+    "@leafer-in/flow": "^1.0.10",
+    "@leafer-in/html": "^1.0.10",
+    "@leafer-in/robot": "^1.0.10",
+    "@leafer-in/scroll": "^1.0.10",
+    "@leafer-in/state": "^1.0.10",
+    "@leafer-in/text-editor": "^1.0.10",
+    "@leafer-in/view": "^1.0.10",
+    "element-plus": "^2.8.8",
+    "leafer-draw": "^1.0.10",
+    "leafer-editor": "^1.0.10",
+    "leafer-ui": "^1.0.10",
+    "normalize.css": "^8.0.1",
+    "vue": "^3.4.37"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.7",
+    "@types/react": "^18.3.12",
+    "@vitejs/plugin-vue": "^5.1.2",
+    "@vitejs/plugin-vue-jsx": "^4.1.1",
+    "sass": "^1.81.0",
+    "typescript": "^5.5.3",
+    "unplugin-auto-import": "^0.18.5",
+    "unplugin-vue-components": "^0.27.4",
+    "vite": "^5.4.9",
+    "vue-tsc": "^2.0.29"
+  }
+}

@@ -1,0 +1,32 @@
+.row {
+  margin-bottom: 20px;
+
+  .title {
+    padding: 10px 0;
+    text-align: left;
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+  }
+  .subtitle-block {
+    padding: 5px 5px;
+    font-size: 14px;
+  }
+  .sub-col {
+    display: flex;
+    align-items: center;
+
+    .subtitle {
+      padding: 5px 5px;
+      text-align: left;
+      font-size: 14px;
+      color: #333;
+    }
+  }
+
+
+}
+
+
+
+

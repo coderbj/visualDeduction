@@ -1,0 +1,78 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('./icomoon.eot?8qthhg');
+  src:  url('./icomoon.eot?8qthhg#iefix') format('embedded-opentype'),
+    url('./icomoon.ttf?8qthhg') format('truetype'),
+    url('./icomoon.woff?8qthhg') format('woff'),
+    url('./icomoon.svg?8qthhg#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-gauge:before {
+  content: "\e908";
+}
+.icon-mark:before {
+  content: "\e909";
+}
+.icon-pointer:before {
+  content: "\e90a";
+}
+.icon-text:before {
+  content: "\e90b";
+}
+.icon-chevron-left:before {
+  content: "\e900";
+}
+.icon-chevron-right:before {
+  content: "\e901";
+}
+.icon-copy:before {
+  content: "\e910";
+}
+.icon-maximize:before {
+  content: "\e902";
+}
+.icon-minimize:before {
+  content: "\e903";
+}
+.icon-mouse-pointer:before {
+  content: "\e904";
+}
+.icon-navigation:before {
+  content: "\e90c";
+}
+.icon-sun:before {
+  content: "\e90d";
+}
+.icon-thermometer:before {
+  content: "\e90e";
+}
+.icon-tool:before {
+  content: "\e905";
+}
+.icon-truck:before {
+  content: "\e906";
+}
+.icon-user:before {
+  content: "\e907";
+}
+.icon-wind:before {
+  content: "\e90f";
+}
