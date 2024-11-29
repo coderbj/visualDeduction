@@ -6,7 +6,7 @@
   <header class="app-header">
     <div class="system-logo">
       <div class="logo"></div>
-      <div class="system-name">作业前可视化推演</div>
+<!--      <div class="system-name">作业前可视化推演</div>-->
     </div>
     <div class="header-tool"></div>
     <div class="weather">
