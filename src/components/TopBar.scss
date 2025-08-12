@@ -1,37 +1,40 @@
 .top-tools {
-    z-index: 9;
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
+  z-index: 9;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+
+  .tool {
+    margin: 0 10px;
     display: flex;
-    justify-content: space-between;
-    padding: 5px 10px;
-    background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+    border-radius: 50%;
 
-    .tool {
-      margin: 0 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #333;
-      border-radius: 50%;
-
-      &.active {
-        color: #fff;
-        background: #0448f4;
-      }
-
-      .icon {
-        padding: 3px;
-        font-size: 24px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+    &.active {
+      color: #fff;
+      background: #0448f4;
     }
 
+    .icon {
+      padding: 3px;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
+
+}
+
+
 

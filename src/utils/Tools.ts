@@ -1,11 +1,13 @@
-import {Group, Text, Box, defineKey, DragEvent as LeaferDragEvent} from 'leafer-editor'
+import {ref, Ref, nextTick, h, render} from 'vue'
+import {Group, Text, Box, Pen, defineKey, DragEvent as LeaferDragEvent,} from 'leafer-editor'
 import {Arrow} from '@leafer-in/arrow'
 import {IToolOptions} from './types'
-import {ref, Ref, nextTick, h, render} from 'vue'
-
-//import TopBar from '../components/TopBar'
-//import GraphicsAttributeMenu from '../components/GraphicsAttributeMenu'
 import Index from '../components/Index'
+import {ExtendedIU} from '@/utils/InitCustomAttr.ts'
+import {useGlobalStore} from '@/store/global.ts'
+import {storeToRefs} from 'pinia'
+
+const {meterToPixel} = storeToRefs(useGlobalStore())
 
 const toolsOptions: IToolOptions[] = [
   {
@@ -26,7 +28,7 @@ const toolsOptions: IToolOptions[] = [
         y,
         startArrow: 'mark',
         endArrow: 'mark',
-        strokeWidth: 2,
+        strokeWidth: 5,
         stroke: 'rgb(255,84,217)',
       })
       const box = new Box({
@@ -45,6 +47,7 @@ const toolsOptions: IToolOptions[] = [
         fill: 'white',
         padding: [5, 5],
         draggable: false,
+        fontSize: 24,
       })
       defineKey(text, 'editConfig', {
         get() {
@@ -68,7 +71,7 @@ const toolsOptions: IToolOptions[] = [
     name: 'gaugeTool',
     cursor: 'pointer',
     createdFactory(x: number, y: number) {
-      const group = new Group({
+      const group: ExtendedIU = new Group({
         draggable: true,
         editable: true,
       })
@@ -78,10 +81,11 @@ const toolsOptions: IToolOptions[] = [
         y,
         startArrow: 'mark',
         endArrow: 'mark',
-        strokeWidth: 2,
-        stroke: 'rgb(50,205,121)',
+        strokeWidth: 5,
+        stroke: 'rgb(255,255,0)',
       })
       const box = new Box({
+        name: 'mark-box',
         textBox: true,
         x,
         y,
@@ -91,14 +95,14 @@ const toolsOptions: IToolOptions[] = [
         draggable: false,
         editable: true,
       })
-
       const text = new Text({
         tag: 'Text',
         className: 'distance',
-        text: '0',
+        text: '-1',
         fill: 'white',
         padding: [5, 5],
         draggable: false,
+        fontSize: 24,
       })
       defineKey(text, 'editConfig', {
         get() {
@@ -113,6 +117,7 @@ const toolsOptions: IToolOptions[] = [
       box.add(text)
       group.add(arrow)
       group.add(box)
+      group.parentIndex = '标注'
       return group
     },
   },
@@ -125,19 +130,32 @@ const toolsOptions: IToolOptions[] = [
     fontSize: 24,
     fill: 'rgba(0, 0, 0, 1)',
     createdFactory(x: number, y: number) {
-      return new Text({
+      const text: ExtendedIU = new Text({
         name: 'textTool',
         x: x - 5,
-        width: 200,
-        height: 35,
         y: y - 10,
         text: '请双击编辑内容',
         fontSize: this.fontSize,
         fill: this.fill,
         editable: true,
       })
+      text.parentIndex = '文字'
+      return text
     },
   },
+  {
+    icon: 'icon-warning-line',
+    title: '警戒线',
+    name: 'brushTool',
+    createdFactory(x,y) {
+      return new Pen({
+        name: 'brushTool',
+        x,
+        y,
+        editable: true,
+      })
+    },
+  }
 ]
 
 
@@ -160,34 +178,39 @@ class Tools {
   }
 
   // 绘制标注
-  public drawMark(e: LeaferDragEvent, graph: Group, startX: number, startY: number) {
+  public drawMark(contentFrame, e: LeaferDragEvent, graph: Group, startX: number, startY: number) {
+    // 转换为父容器坐标系
+    const localPoint = contentFrame.getInnerPoint(e)
+    // 计算实际偏移量
+    const deltaX = localPoint.x - startX!
+    const deltaY = localPoint.y - startY!
+
     const arrow = graph.children[0]! as Arrow
     const box = graph.children[1]! as Arrow
     const text = box.findOne('.distance') as Text
-    text.text = arrow.width?.toFixed(2) + '米'
-    arrow.toPoint = {x: e.x - arrow.x!, y: e.y - arrow.y!}
-    // 计算box的中心点
-   /* let startX = graph.boxBounds.x
-    let startY = graph.boxBounds.y
-    let endX = startX! + graph.boxBounds.width
-    let endY = startY! + graph.boxBounds.height
 
+    // 2. 计算真实距离（非箭头宽度）
+    const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2) * meterToPixel.value
+    text.text = distance.toFixed(2) + '米'
 
-    box.x = (endX - startX) / 2 + startX - (box.width! / 2)
-    box.y = (endY - startY) / 2 + startY - (box.height! / 2)
+    // 3. 更新箭头终点（相对起点）
+    arrow.toPoint = {x: deltaX, y: deltaY}
 
-    box.origin = {x: box.width! / 2, y: box.height! / 2}
-    box.rotation = arrow.rotation*/
+    // 4. 计算正确中点坐标（关键修正点）
+    const midX = startX + deltaX / 2 - box.width / 2
+    const midY = startY + deltaY / 2 - box.height / 2
 
-    const endX = e.x
-    const endY = e.y
-    const midX = (endX + startX) / 2 - (box.width! / 2)
-    const midY = (endY + startY) / 2 - (box.height! / 2)
-
-    box.set({x: midX, y: midY})
-    box.origin = {x:0.5, y:0.5, type: 'percent'}
-    box.rotation = arrow.rotation
-
+    // 5. 设置位置和旋转
+    box.set({
+      x: midX,
+      y: midY,
+      rotation: arrow.rotation,
+      origin: {
+        x: 0.5,
+        y: 0.5,
+        type: 'percent'
+      }
+    })
   }
 }
 

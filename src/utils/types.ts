@@ -1,4 +1,6 @@
+import {IUI} from 'leafer-editor'
 import DrawingBoard from './DrawingBoard.ts'
+
 export interface IAppProps {
   domId:string
   onChange?:() => void
@@ -10,48 +12,31 @@ export interface IPluginProps {
 }
 
 export interface ISideMenus {
-  title:string
+  id:number
+  bianhao:string
+  zuoyetype:string
+  name:string
   icon:string
 }
 
-export interface IToolData {
-  tag: string
+export interface IGraphsData {
   resourceName: string
-  width: number
-  height: number
-  stroke: string
-  strokeWidth: number
-  fill: string
-  corners?: number
-  draggable: boolean
-  editable: boolean,
-  around?: string,
-  cornerRadius?: number,
-  opacity?: number,
-  dashPattern?: number[],
-  strokeJoin?: string,
-  plugins?: any[],
-  description?: string
+  tag: string
+  icon: string
+  describe:string
 }
-
-export interface ICarData {
-  tag: string
-  width: number
-  height: number
-  resourceName: string
-  draggable: boolean
-  editable: boolean
-  children: Record<string, any>
-}
-
-export interface IPersonData {
-  tag: string
-  resourceName: string
-  draggable: boolean
-  editable: boolean,
-  lockRatio: boolean,
-  children: Record<string, any>,
-  event?: Record<string, any>
+export interface IResourceData {
+  parentIndex?: number
+  resourceName?: string
+  imgurl?: string
+  name?: string
+  describe?: string
+  tag?: string
+  icon?: string
+  width?: number
+  height?: number
+  length?: number
+  zuoyeradius?: number
 }
 
 export interface IToolOptions {
@@ -61,6 +46,54 @@ export interface IToolOptions {
   notMove?:boolean
   cursor?:string
   fontSize?:number
-  fill?:string
+  fill?:string,
+  strokeWidth?:number
+  stroke?:string
   createdFactory?:(x:number, y:number, e?:any) => any
+  onMousemove?:(e?, point?:any) => void
 }
+
+export interface IDefaultRectData {
+  tag: string
+  width: number
+  height: number
+  fill: string
+  stroke: string
+  strokeWidth: number
+  draggable: boolean
+  editable: boolean
+  around: string
+  cornerRadius: number
+  opacity: number
+  strokeJoin: string
+}
+export interface IDefaultStarData {
+  tag: string
+  width: number
+  height: number
+  fill: string
+  stroke: string
+  strokeWidth: number
+  innerRadius: number
+  corners: number
+  cornerRadius: number
+  draggable: boolean
+  editable: boolean
+  around: string
+  opacity: number
+  strokeJoin: string
+}
+
+export interface IUIExtended extends IUI {
+  parentIndex: number;
+  resourceIndex: number;
+}
+
+export interface IPictureInfo {
+  width?:number
+  height?:number
+  url?:string
+  isPicture?:boolean
+}
+
+

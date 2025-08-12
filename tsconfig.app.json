@@ -11,7 +11,8 @@
     "skipLibCheck": true,
     "types": [
       "element-plus/global",
-      "vite/client"
+      "vite/client",
+      "./src/global.d.ts"
     ],
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -23,13 +24,22 @@
     /* Linting */
     "strict": false,
     "noUnusedLocals": true,
+    "noEmitOnError": false, // 允许错误时继续打包
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "experimentalDecorators": true
+    // 开启装饰器功能
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
   ]
 }

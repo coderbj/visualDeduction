@@ -1,0 +1,53 @@
+.row {
+  margin-bottom: 0;
+
+  .title {
+    margin-top: 15px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 12px;
+    color: #333;
+  }
+  .subtitle-block {
+    padding: 5px 0;
+    font-size: 12px;
+  }
+  .sub-col {
+    display: flex;
+    align-items: center;
+
+    .subtitle {
+      text-align: left;
+      font-size: 12px;
+      color: #333;
+    }
+  }
+
+
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    .icon {
+      padding: 5px;
+      background: #eee;
+      font-size: 14px;
+      border-radius: 3px;
+      color: #444;
+
+      &.primary {
+        color: #007bff;
+      }
+      &.default {
+        color: #444;
+      }
+    }
+  }
+
+
+
+}
+
+
+
+
